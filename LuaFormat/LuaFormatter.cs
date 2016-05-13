@@ -85,6 +85,12 @@ namespace Lua.LanguageService.Format
 
             InitParser();
             var pt = Parser.Parse(text);
+
+            if (Parser.Context.HasErrors)
+            {
+                throw new Exception("Cannot formet code due to syntax error");
+            }
+
             tokenMap = new Dictionary<SourceLocation, LuaTokenInfo>();
 
             var indentState = new LuaIndentState(text);

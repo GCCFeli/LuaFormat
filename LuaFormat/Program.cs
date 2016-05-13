@@ -23,6 +23,11 @@ namespace Lua.LanguageService.Format
         public string Text;
     }
 
+    class ErrorMessage
+    {
+        public string Error;
+    }
+
     class Program
     {
         static int Main(string[] args)
@@ -30,7 +35,7 @@ namespace Lua.LanguageService.Format
             var options = new Options();
             if (Parser.Default.ParseArguments(args, options))
             {
-                //try
+                try
                 {
                     using (FileStream fs = File.Open(options.InputFile, FileMode.Open, FileAccess.Read))
                     {
@@ -54,12 +59,18 @@ namespace Lua.LanguageService.Format
 
                     return 0;
                 }
-                //catch (Exception ex)
-                //{
-                //    Console.Error.WriteLine("Error:");
-                //    Console.Error.WriteLine(ex.Message);
-                //    return -1;
-                //}
+                catch (Exception ex)
+                {
+                    Console.Error.WriteLine(JsonConvert.SerializeObject(
+                        new ErrorMessage { Error = ex.Message },
+                        Formatting.Indented,
+                        new JsonSerializerSettings
+                        {
+                            StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
+                        })
+                    );
+                    return -1;
+                }
             }
             return 0;
         }
