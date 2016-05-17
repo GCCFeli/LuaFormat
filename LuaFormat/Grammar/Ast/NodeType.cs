@@ -2,6 +2,7 @@
 {
     enum NodeType
     {
+        LuaExpression,
         LuaUnaryOperation,
         LuaTable,
         LuaParmList,

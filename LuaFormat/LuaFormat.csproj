@@ -54,6 +54,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Grammar\Ast\LuaExpressionNode.cs" />
     <Compile Include="Grammar\Ast\LuaForNode.cs" />
     <Compile Include="Grammar\Ast\LuaRepeatNode.cs" />
     <Compile Include="Grammar\Ast\LuaUnaryOperatiorNode.cs" />

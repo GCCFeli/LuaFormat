@@ -103,7 +103,6 @@ namespace Lua.LanguageService.Grammar
 
             var BinOp = new NonTerminal("bin op");
 
-            var Expr = new NonTerminal("expression");
             var PrefixExpr = new NonTerminal("prefix expression");
             var Var = new NonTerminal("var");
             var Args = new NonTerminal("args");
@@ -114,7 +113,7 @@ namespace Lua.LanguageService.Grammar
 
             var ColonCallOpt = new NonTerminal("colon call");
             var FunctionParameters = new NonTerminal("function parameters");
-            MarkTransient(Expr, Statement, Statements, StatementsEnd, SingleStatementWithTermOpt, /*ColonCallOpt,*/
+            MarkTransient(Statement, Statements, StatementsEnd, SingleStatementWithTermOpt, /*ColonCallOpt,*/
                           FunctionParameters,
                           LastStatementWithTermOpt, BinOp, PrefixExpr, Var, Args, EllipsisOpt, ArgsParameters,
                           ParentheicalExpression);
@@ -125,6 +124,8 @@ namespace Lua.LanguageService.Grammar
 
             // These non-terminals will all require AST types. Anything that isnt really a language construct should be
             // refactored into a transient
+
+            NonTerminal Expr = new NonTerminal("expression", typeof(LuaExpressionNode));
 
             NonTerminal Chunk = new NonTerminal("chunk", typeof(LuaChunkNode));
             NonTerminal Block = new NonTerminal("block", typeof(BlockNode)); // probably should be transient
